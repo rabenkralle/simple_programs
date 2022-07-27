@@ -1,5 +1,5 @@
 # Movie lover
-# Demonstration of labels
+# Demonstration of Check Buttons
 
 from tkinter import *
 from turtle import st
