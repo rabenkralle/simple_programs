@@ -1,17 +1,18 @@
 # Mad Storyteller
-# Program make story with users' input
+# Program make story using user's input
 from tkinter import *
 
-from pyparsing import col
-
 class Application(Frame):
+    # GUI application that creates a story based on user input. 
     def __init__(self, master):
         super(Application, self).__init__(master)
         self.grid()
         self.create_widgets()
 
     def create_widgets(self):
-        Label(self, text="Enter data for new story").grid(row=0, column=0, columnspan=2, sticky=W)
+        # Create widgets to get story information and to display story.
+        Label(self, text="Enter data for new story").grid(row=0, 
+        column=0, columnspan=2, sticky=W)
         Label(self, text="Person's name:").grid(row=1, column=0, sticky=W)
         self.person_ent = Entry(self)
         self.person_ent.grid(row=1, column=1, sticky=W)
@@ -23,7 +24,8 @@ class Application(Frame):
         self.verb_ent.grid(row=3, column=1, sticky=W)
         Label(self, text="Adjective(-s):").grid(row=4, column=0, sticky=W)
         self.is_itchy = BooleanVar()
-        Checkbutton(self, text="itchy", variable=self.is_itchy).grid(row=4, column=1, sticky=W)
+        Checkbutton(self, text="itchy", variable=self.is_itchy).grid(row=4, 
+        column=1, sticky=W)
         self.is_joyous = BooleanVar()
         Checkbutton(self, text="joyous", variable=self.is_joyous).grid(row=4, column=2, sticky=W)
         self.is_electric = BooleanVar()
@@ -42,6 +44,7 @@ class Application(Frame):
         self.story_txt.grid(row=7, column=0, columnspan=4)
 
     def tell_story(self):
+        # Fill text box with new story based on user input.
         person = self.person_ent.get()
         noun = self.noun_ent.get()
         verb = self.verb_ent.get()
