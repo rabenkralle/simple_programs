@@ -74,7 +74,7 @@ class Application(Frame):
 
 
 root = Tk()
-root.title("Guess My Number")
+root.title("Pdf2mp3 Converter")
 app = Application(root)
 root.mainloop()
 
