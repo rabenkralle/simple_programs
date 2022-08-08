@@ -1,4 +1,5 @@
 import math, random
+from tkinter import N
 from superwires import games
 
 games.init(screen_width=640, screen_height=480, fps=50)
@@ -11,6 +12,7 @@ class Asteroid(games.Sprite):
             MEDIUM: games.load_image("chapter_12/asteroid_med.bmp"),
             LARGE: games.load_image("chapter_12/asteroid_big.bmp")}
     SPEED = 2
+    SPAWN = 2
 
     def __init__(self, x, y, size):
         super(Asteroid, self).__init__(
@@ -29,6 +31,15 @@ class Asteroid(games.Sprite):
             self.right = 0
         if self.right < 0:
             self.left = games.screen.width
+    
+    def die(self):
+        if self.size != Asteroid.SMALL:
+            for i in range(Asteroid.SPAWN):
+                new_asteroid = Asteroid(x=self.x,
+                                        y=self.y,
+                                        size=self.size - 1)
+                games.screen.add(new_asteroid)
+            self.destroy()
 
 class Ship(games.Sprite):
 
@@ -74,6 +85,15 @@ class Ship(games.Sprite):
             new_missile = Missile(self.x, self.y, self.angle)
             games.screen.add(new_missile)
             self.missile_wait = Ship.MISSILE_DELAY
+        
+        if self.overlapping_sprites:
+            for sprite in self.overlapping_sprites:
+                sprite.die()
+            self.die()
+    
+    def die(self):
+        self.destroy()
+
 
 
 class Missile(games.Sprite):
@@ -108,6 +128,14 @@ class Missile(games.Sprite):
             self.right = 0
         if self.right < 0:
             self.left = games.screen.width
+        
+        if self.overlapping_sprites:
+            for sprite in self.overlapping_sprites:
+                sprite.die()
+            self.die()
+
+    def die(self):
+        self.destroy()
 
 def main():
     nebula_image = games.load_image("chapter_12/nebula.jpg")
